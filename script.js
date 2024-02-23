@@ -146,6 +146,34 @@ document.addEventListener('DOMContentLoaded', () =>{
         return newLine;
     }
 
-    
+    // Function to check if the game is over
+    function checkGameOver(){
+        for(let i = 0; i < size; i++){
+            for(let j = 0; j < size; j++){
+                if(board[i][j] === 0){
+                    return; // There is an empty cell, so game not over
+                }
+                if (j < size - 1 && board[i][j] === board[i][j + 1]){
+                    return; // There are horizontally adjacent equal cells, so a move is possible
+                }
+                if(i < size - 1 && board[i][j] === board[i + 1][j]){
+                    return; // There are vertically adjacent equal cells, so a move is possible
+                }
+            }
+        }
 
-})
+        // If we reach here, no moves are possible
+        gameOverElem.style.display = 'flex';
+    }
+
+    // Event listeners
+    document.addEventListener('keydown', event =>{
+        if (['ArrowUp'], ['ArrowDown'], ['ArrowLeft'], ['ArrowRight'].includes(event.key)){
+            move(event.key);
+        }
+    });
+    document.getElementById('restart-btn').addEventListener('click', restartGame);
+
+    initializeGame();
+
+});
