@@ -23,8 +23,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         if (currentScore > highScore){
             highScore = currentScore;
             highScoreElem.textContent = highScore;
-            localStorage.setItem('2048-highScore', 
-            highScore);
+            localStorage.setItem('2048-highScore', highScore);
         }
     }
 
@@ -48,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     function renderBoard(){
         for (let i = 0; i < size; i++){
             for(let j = 0; j < size; j++){
-                const cell = document.querySelector('[data-row="${i}"][data-col="${j}"]');
+                const cell = document.querySelector(`[data-row="${i}"][data-col="${j}"]`);
                 const prevValue = cell.dataset.value;
                 const currentValue = board[i][j];
                 if(currentValue !== 0){
@@ -74,4 +73,57 @@ document.addEventListener('DOMContentLoaded', () =>{
             });
         }, 300);
     }
+
+    // Function to place a random tile on the board
+    function placeRandom(){
+        const available = [];
+        for(let i = 0; i < size; i++){
+            for(let j = 0; j< size; j++){
+                if(board[i][j] === 0){
+                    available.push({x: i, y: j});
+                }
+            }
+        }
+
+        if(available.length > 0){
+        const randomCell = available[Math.floor(Math.random() * available.length)];
+        board[randomCell.x][randomCell.y] = Math.random() < 0.9 ? 2 : 4;
+        const cell = document.querySelector(`[data-row="${randomCell.x}"][data-col="${randomCell.y}"]`);
+        cell.classList.add('new-tile'); // Animation for new tiles
+        }
+    }
+
+    // Function to move the tiles based on arrow key input
+    function move(direction){
+        let hasChanged = false;
+        if(direction === 'ArrowUp' || direction === 'ArrowDown'){
+            for(let j = 0; j < size; j++){
+                const column = [...Array(size)].map((_, i) => board[i][j]);
+                const newColumn = transform(column, direction === 'ArrowUp');
+                for(let i = 0; i < size; i++){
+                    if(board[i][j] !== newColumn[i]){
+                        hasChanged = true;
+                        board[i][j] = newColumn[i];
+                    }
+                }
+            }
+        }else if(direction === 'ArrowLeft' || direction === 'ArrowRight'){
+            for (let i = 0; i < size; i++){
+                const row = board[i];
+                const newRow = transform(row, direction === 'ArrowLeft');
+                if(row.join(',') !== newRow.join(',')){
+                    hasChanged = true;
+                    board[i] = newRow;
+                }
+            }
+        }
+        if(hasChanged){
+            placeRandom();
+            renderBoard();
+            checkGameOver();
+        }
+    }
+
+    // Function to transform a line (row or column) based on move direction
+
 })
