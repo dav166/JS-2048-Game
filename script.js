@@ -43,4 +43,35 @@ document.addEventListener('DOMContentLoaded', () =>{
         placeRandom();
         renderBoard();
     }
+
+    // Function to render the game board on the UI
+    function renderBoard(){
+        for (let i = 0; i < size; i++){
+            for(let j = 0; j < size; j++){
+                const cell = document.querySelector('[data-row="${i}"][data-col="${j}"]');
+                const prevValue = cell.dataset.value;
+                const currentValue = board[i][j];
+                if(currentValue !== 0){
+                    cell.dataset.value = currentValue;
+                    cell.textContent = currentValue;
+                    // Animation handling
+                    if(currentValue !== parseInt(prevValue) && !cell.classList.contains('new-tile')){
+                        cell.classList.add('merged-tile');
+                    }
+                } else{
+                    cell.textContent = '';
+                    delete cell.dataset.value;
+                    cell.classList.remove('merged-tile', 'new-tile');
+                }
+            }
+        }
+
+        // Cleanup animation classes
+        setTimeout(() =>{
+            const cells = document.querySelectorAll('grid-cell');
+            cells.forEach(cell =>{
+                cell.classList.remove('merged-tile', 'new-tile');
+            });
+        }, 300);
+    }
 })
