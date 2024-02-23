@@ -28,5 +28,19 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
     }
 
-    //
+    // Function to restart the game
+    function restartGame(){
+        currentScore = 0;
+        currentScoreElem.textContent = '0';
+        gameOverElem.style.display = 'none';
+        initializeGame();
+    }
+
+    //Function to initialize the game
+    function initializeGame(){
+        board = [...Array(size)].map(e => Array(size).fill(0));
+        placeRandom();
+        placeRandom();
+        renderBoard();
+    }
 })
