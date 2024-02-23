@@ -125,5 +125,27 @@ document.addEventListener('DOMContentLoaded', () =>{
     }
 
     // Function to transform a line (row or column) based on move direction
+    function transform(line, moveTowardsStart){
+        let newLine = line.filter(cell => cell !== 0);
+        if(!moveTowardsStart){
+            newLine.reverse();
+        }
+        for(let i = 0; i < newLine.length - 1; i++){
+            if(newLine[i] === newLine[i + 1]){
+                newLine[i] *= 2;
+                updateScore(newLine[i]); // Update score when tiles merged
+                newLine.splice(i + 1, 1);
+            }
+        }
+        while (newLine.length < size){
+            newLine.push(0);
+        }
+        if(!moveTowardsStart){
+            newLine.reverse();
+        }
+        return newLine;
+    }
+
+    
 
 })
