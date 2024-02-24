@@ -43,51 +43,51 @@ body {
 }
 
 .cell[data-value="2"] {
-    background-color: #ffc0cb;
+    background-color: #7eb0ea;
 }
 
 .cell[data-value="4"] {
-    background-color: #add8e6;
+    background-color: #fdcf51;
 }
 
 .cell[data-value="8"] {
-    background-color: #98fb98;
+    background-color: #ff9157;
 }
 
 .cell[data-value="16"] {
-    background-color: #ffd700;
+    background-color: #b1d962;
 }
 
 .cell[data-value="32"] {
-    background-color: #ffa07a;
+    background-color: #ff6060;
 }
 
 .cell[data-value="64"] {
-    background-color: #87ceeb;
+    background-color: #ff9a00;
 }
 
 .cell[data-value="128"] {
-    background-color: #ffff00;
+    background-color: #65c3ba;
 }
 
 .cell[data-value="256"] {
-    background-color: #40e0d0;
+    background-color: #ffc425;
 }
 
 .cell[data-value="512"] {
-    background-color: #ff69b4;
+    background-color: #f37735;
 }
 
 .cell[data-value="1024"] {
-    background-color: #7b68ee;
+    background-color: #00aedb;
 }
 
 .cell[data-value="2048"] {
-    background-color: #ff6347;
+    background-color: #00b159;
 }
 
 .cell[data-value="4096"] {
-    background-color: #a9a9a9;
+    background-color: #d11141;
 }
 
 #restart-btn {
